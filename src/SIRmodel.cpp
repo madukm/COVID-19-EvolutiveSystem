@@ -1,4 +1,4 @@
-#include "SIR_model.h"
+#include "SIRmodel.h"
 
 #include <iostream>
 #include <vector>
@@ -19,27 +19,39 @@ SIR::~SIR(){
 }
 
 //SETTER & GETTERS
-void SIR::set_params(float beta, float gamma, float csi)
+void SIR::setParams(float beta, float gamma, float csi)
 {
 	this->beta = beta;
 	this->gamma = gamma;
 	this->csi = csi;
 }
 
-float SIR::get_beta(){
-	return beta;
+void SIR::setBeta(float beta){
+	this->beta = beta;
 }
 
-float SIR::get_gamma(){
-	return gamma;
+void SIR::setGamma(float gamma){
+	this->gamma = gamma;
 }
 
-float SIR::get_csi(){
-	return csi;
+void SIR::setCsi(float csi){
+	this->csi = csi;
 }
 
+float SIR::getBeta(){return beta;}
+
+float SIR::getGamma(){return gamma;}
+
+float SIR::getCsi(){return csi;}
+
+std::vector<float> SIR::getS(){ return S; };
+
+std::vector<float> SIR::getI(){ return I; };
+
+std::vector<float> SIR::getR(){ return R; };
+	
 //MODEL FUNCTIONS
-void SIR::initialize_model(float S, float I, float R)
+void SIR::initialize(float S, float I, float R)
 {
 	this->S.push_back(S);
 	this->I.push_back(I);
@@ -47,20 +59,18 @@ void SIR::initialize_model(float S, float I, float R)
 	T = S + I + R;
 }
 
-void SIR::reset_model()
+void SIR::reset()
 {
 	//Clear all the data
 	beta = .0;
 	gamma = .0;
 	csi = .0;
-	_fitness.clear();
 	S.clear();
 	I.clear();
 	R.clear();
 }
-
 	
-void SIR::run_model(int pred_days)
+void SIR::run(int pred_days)
 {
 	while(pred_days--){
 		float currS = S.front();
@@ -70,11 +80,7 @@ void SIR::run_model(int pred_days)
 		R.push_back(R.front() + gamma * currI);
 	}
 }
-
-/*float SIR::set_fitness(std::vector<float> fitness)
-{
-	
-}*/
+/*
 float SIR::calc_fitness(std::vector<int> predicted, std::vector<int> goal)
 
 {	
@@ -83,19 +89,13 @@ float SIR::calc_fitness(std::vector<int> predicted, std::vector<int> goal)
 		sum += abs(predicted[i]-goal[i]);
 	return sum;
 }
-/**
-float SIR::fitness(Condition condition, int days)
-{
-	switch(state){
-		case S:
-			calc_fitness(S, data.get_realS());
-			return ;
-			
-		case I:
-			return ;
-		
-		case R:
 
-			return ;
-	}	
-}*/
+std::vector<float> SIR::fitness()
+{
+	std::vector<float> temp;	
+   	temp.push_back(calc_fitness(S, _file.get_realS()));
+	temp.push_back(calc_fitness(I, _file.get_realI()));
+	temp.push_back(calc_fitness(R, _file.get_realR()));
+	return temp;
+}
+*/

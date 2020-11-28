@@ -1,5 +1,4 @@
-#define QTY_MODELS 10
-
+//COLORS
 #define RESET       "\033[0m"
 #define BLACK       "\033[0m\033[30m"       /* Black */
 #define RED         "\033[0m\033[31m"       /* Red */
@@ -18,4 +17,4 @@
 #define BOLDCYAN    "\033[1m\033[36m"       /* Bold Cyan */
 #define BOLDWHITE   "\033[1m\033[37m"       /* Bold White */ 
 
-
+#define QTY_MODELS 10
